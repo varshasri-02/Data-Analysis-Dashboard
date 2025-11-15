@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffd6e8 0%, #c9e4ff 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #ffb3d9 0%, #a8d8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(255, 182, 193, 0.3);
+        }
+
+        h2 {
+            color: #555;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ffb3d9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        table thead {
+            background: linear-gradient(135deg, #ffb3d9 0%, #a8d8ff 100%);
+            color: white;
+        }
+
+        table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9em;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ffe6f0;
+            color: #666;
+        }
+
+        table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        table tbody tr:hover {
+            background: #fff5f8;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .histogram-container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff5f8 0%, #f0f8ff 100%);
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        .histogram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.2);
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffb3d9 0%, #a8d8ff 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 179, 217, 0.4);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 179, 217, 0.6);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Data Analysis Results</h1>
+            <p class="subtitle">Complete statistical analysis of your CSV data</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📋</span>First Few Rows</h2>
+            <div class="table-wrapper">
+                {{ head|safe }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📈</span>Summary Statistics</h2>
+            <div class="table-wrapper">
+                {{ summary_stats|safe }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">⚠️</span>Missing Values</h2>
+            <div class="table-wrapper">
+                {{ missing_values|safe }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📊</span>Data Histogram</h2>
+            <div class="histogram-container">
+                {% load static %}
+                <img src="{% static 'hist.png' %}" alt="Data Histogram">
+            </div>
+        </div>
+
+        <div class="header">
+            <a href="/" class="back-button">⬅️ Upload Another File</a>
+        </div>
+    </div>
+</body>
+</html>
