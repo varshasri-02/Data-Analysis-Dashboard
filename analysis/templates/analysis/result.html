@@ -174,6 +174,34 @@
         </div>
 
         <div class="card">
+            <h2><span class="icon">📋</span>Data Overview</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rows</td>
+                            <td>{{ data_overview.shape.0 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Columns</td>
+                            <td>{{ data_overview.shape.1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Memory Usage</td>
+                            <td>{{ data_overview.memory_usage|floatformat:2 }} bytes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
             <h2><span class="icon">📋</span>First Few Rows</h2>
             <div class="table-wrapper">
                 {{ head|safe }}
@@ -187,22 +215,96 @@
             </div>
         </div>
 
+        {% if numeric_summary %}
         <div class="card">
-            <h2><span class="icon">⚠️</span>Missing Values</h2>
+            <h2><span class="icon">🔢</span>Numeric Columns Summary</h2>
+            <div class="table-wrapper">
+                {{ numeric_summary|safe }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if categorical_summary %}
+        <div class="card">
+            <h2><span class="icon">📊</span>Categorical Columns Summary</h2>
+            <div class="table-wrapper">
+                {{ categorical_summary|safe }}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2><span class="icon">⚠️</span>Missing Values Analysis</h2>
             <div class="table-wrapper">
                 {{ missing_values|safe }}
             </div>
         </div>
 
+        {% if correlation_matrix %}
         <div class="card">
-            <h2><span class="icon">📊</span>Data Histogram</h2>
-            <div class="histogram-container">
-                {% load static %}
-                <img src="{% static 'hist.png' %}" alt="Data Histogram">
+            <h2><span class="icon">🔗</span>Correlation Matrix</h2>
+            <div class="table-wrapper">
+                {{ correlation_matrix|safe }}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2><span class="icon">🔍</span>Data Quality Summary</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Duplicate Rows</td>
+                            <td>{{ duplicates }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Outliers Detected</td>
+                            <td>{% for col, data in outliers.items %}{{ data.count }}{% if not forloop.last %} + {% endif %}{% endfor %}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
+        {% for chart in charts %}
+        <div class="card">
+            <h2><span class="icon">
+                {% if chart.type == 'histogram' %}📊{% elif chart.type == 'boxplot' %}📦{% elif chart.type == 'heatmap' %}🔥{% elif chart.type == 'scatter_matrix' %}🔗{% elif chart.type == 'bar_chart' %}📊{% elif chart.type == 'line_plot' %}📈{% endif %}
+            </span>{{ chart.title }}</h2>
+            <div class="histogram-container">
+                <img src="{{ chart.data }}" alt="{{ chart.title }}">
+            </div>
+        </div>
+        {% endfor %}
+
         <div class="header">
+            <form method="post" action="{% url 'export_csv' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="back-button" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); margin-right: 10px;">
+                    📥 Export Cleaned CSV
+                </button>
+            </form>
+            <form method="post" action="{% url 'export_missing' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="back-button" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); margin-right: 10px;">
+                    📊 Export Missing Values Report
+                </button>
+            </form>
+            {% if correlation_matrix %}
+            <form method="post" action="{% url 'export_correlation' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="back-button" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%); margin-right: 10px;">
+                    🔗 Export Correlation Matrix
+                </button>
+            </form>
+            {% endif %}
             <a href="/" class="back-button">⬅️ Upload Another File</a>
         </div>
     </div>

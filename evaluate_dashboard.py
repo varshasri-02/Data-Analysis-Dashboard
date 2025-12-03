@@ -1,6 +1,7 @@
 """
 Data Analysis Dashboard - Real Performance Evaluation
 Author: Varshasri R V
+Repository: https://github.com/varshasri-02/Data-Analysis-Dashboard.git
 Measures actual performance using iris.csv dataset
 """
 
@@ -32,7 +33,7 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         print("Please ensure iris.csv is in the same folder as this script.")
         return None
     
-    print(f"\n✓ Found dataset: {csv_file}")
+    print(f"\n* Found dataset: {csv_file}")
     
     # Dictionary to store operation times
     operations = {}
@@ -58,9 +59,9 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'memory_kb': memory_usage
     }
     
-    print(f"  ✓ Loaded: {rows} rows × {cols} columns")
-    print(f"  ✓ Memory usage: {memory_usage:.2f} KB")
-    print(f"  ✓ Time: {operations['CSV Upload & Validation']:.2f} ms")
+    print(f"  * Loaded: {rows} rows x {cols} columns")
+    print(f"  * Memory usage: {memory_usage:.2f} KB")
+    print(f"  * Time: {operations['CSV Upload & Validation']:.2f} ms")
     
     # ========================================
     # 2. DATA CLEANING
@@ -86,11 +87,11 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'categorical_columns': len(categorical_cols)
     }
     
-    print(f"  ✓ Duplicates found: {duplicates}")
-    print(f"  ✓ Missing values: {missing_values}")
-    print(f"  ✓ Numeric columns: {len(numeric_cols)}")
-    print(f"  ✓ Categorical columns: {len(categorical_cols)}")
-    print(f"  ✓ Time: {operations['Data Cleaning']:.2f} ms")
+    print(f"  * Duplicates found: {duplicates}")
+    print(f"  * Missing values: {missing_values}")
+    print(f"  * Numeric columns: {len(numeric_cols)}")
+    print(f"  * Categorical columns: {len(categorical_cols)}")
+    print(f"  * Time: {operations['Data Cleaning']:.2f} ms")
     
     # ========================================
     # 3. STATISTICAL SUMMARY
@@ -112,9 +113,9 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'numeric_stats': len(numeric_cols) * 8  # count, mean, std, min, 25%, 50%, 75%, max
     }
     
-    print(f"  ✓ Basic statistics: {len(stats)} metrics")
-    print(f"  ✓ Advanced stats: skewness, kurtosis calculated")
-    print(f"  ✓ Time: {operations['Statistical Summary']:.2f} ms")
+    print(f"  * Basic statistics: {len(stats)} metrics")
+    print(f"  * Advanced stats: skewness, kurtosis calculated")
+    print(f"  * Time: {operations['Statistical Summary']:.2f} ms")
     
     # ========================================
     # 4. MISSING VALUE ANALYSIS
@@ -135,9 +136,9 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'total_missing': missing_values
     }
     
-    print(f"  ✓ Columns analyzed: {cols}")
-    print(f"  ✓ Missing values report generated")
-    print(f"  ✓ Time: {operations['Missing Value Analysis']:.2f} ms")
+    print(f"  * Columns analyzed: {cols}")
+    print(f"  * Missing values report generated")
+    print(f"  * Time: {operations['Missing Value Analysis']:.2f} ms")
     
     # ========================================
     # 5. DATA VISUALIZATION
@@ -181,9 +182,9 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'charts_generated': charts_generated
     }
     
-    print(f"  ✓ Charts generated: {charts_generated}")
-    print(f"  ✓ Types: histograms, correlation heatmap, box plots")
-    print(f"  ✓ Time: {operations['Data Visualization']:.2f} ms")
+    print(f"  * Charts generated: {charts_generated}")
+    print(f"  * Types: histograms, correlation heatmap, box plots")
+    print(f"  * Time: {operations['Data Visualization']:.2f} ms")
     
     # ========================================
     # 6. REPORT GENERATION
@@ -212,9 +213,9 @@ def measure_csv_processing_performance(csv_file='iris.csv'):
         'sections': len(report)
     }
     
-    print(f"  ✓ Report sections: {len(report)}")
-    print(f"  ✓ Format: Comprehensive JSON/HTML ready")
-    print(f"  ✓ Time: {operations['Report Generation']:.2f} ms")
+    print(f"  * Report sections: {len(report)}")
+    print(f"  * Format: Comprehensive JSON/HTML ready")
+    print(f"  * Time: {operations['Report Generation']:.2f} ms")
     
     return {
         'operations': operations,
@@ -274,7 +275,7 @@ def evaluate_manual_vs_automated_workflow():
         saving = times['manual'] - times['automated']
         saving_pct = (saving / times['manual']) * 100
         print(f"\n{task_name}:")
-        print(f"  Manual: {times['manual']} min → Automated: {times['automated']} min")
+        print(f"  Manual: {times['manual']} min to Automated: {times['automated']} min")
         print(f"  Saved: {saving} min ({saving_pct:.1f}% faster)")
     
     print("\n" + "="*70)
@@ -283,8 +284,8 @@ def evaluate_manual_vs_automated_workflow():
     print(f"\nManual Process: {total_manual} minutes ({total_manual/60:.1f} hours)")
     print(f"Automated Process: {total_automated} minutes ({total_automated/60:.1f} hours)")
     print(f"Time Saved: {time_saved} minutes ({time_saved/60:.1f} hours)")
-    print(f"\n✓ Manual Work Reduction: {reduction_percent:.1f}%")
-    print(f"✓ Speed Improvement: {total_manual/total_automated:.1f}x faster")
+    print(f"\n* Manual Work Reduction: {reduction_percent:.1f}%")
+    print(f"* Speed Improvement: {total_manual/total_automated:.1f}x faster")
     
     # Visualize
     visualize_workflow_comparison(tasks, total_manual, total_automated, reduction_percent)
@@ -365,7 +366,7 @@ def visualize_workflow_comparison(tasks, total_manual, total_automated, reductio
     
     plt.tight_layout()
     plt.savefig('dashboard_workflow_efficiency.png', dpi=300, bbox_inches='tight')
-    print("\n✓ Saved: dashboard_workflow_efficiency.png")
+    print("\n* Saved: dashboard_workflow_efficiency.png")
     plt.close()
 
 
@@ -444,9 +445,9 @@ def visualize_performance_results(results):
     STATUS
     {'='*40}
     
-    ✓ All operations completed successfully
-    ✓ Performance within acceptable limits
-    ✓ Ready for production deployment
+    * All operations completed successfully
+    * Performance within acceptable limits
+    * Ready for production deployment
     """
     
     ax4.text(0.1, 0.5, info_text, transform=ax4.transAxes,
@@ -456,7 +457,7 @@ def visualize_performance_results(results):
     
     plt.tight_layout()
     plt.savefig('dashboard_performance_metrics.png', dpi=300, bbox_inches='tight')
-    print("✓ Saved: dashboard_performance_metrics.png")
+    print("* Saved: dashboard_performance_metrics.png")
     plt.close()
 
 
@@ -467,6 +468,7 @@ def main():
     print("\n" + "="*70)
     print("DATA ANALYSIS DASHBOARD - COMPREHENSIVE EVALUATION")
     print("Author: Varshasri R V")
+    print("Repository: https://github.com/varshasri-02/Data-Analysis-Dashboard.git")
     print("Project: CSV_ANALYZER")
     print("="*70)
     
@@ -495,7 +497,7 @@ def main():
     
     print(f"\n{'ACTUAL DASHBOARD PERFORMANCE':^70}")
     print("-" * 70)
-    print(f"Dataset: {performance_results['dataset_info']['rows']} rows × " +
+    print(f"Dataset: {performance_results['dataset_info']['rows']} rows x " +
           f"{performance_results['dataset_info']['cols']} columns")
     print(f"Total Processing Time: {total_processing:.2f} ms ({total_processing/1000:.3f} seconds)")
     print(f"Average Operation Time: {total_processing/len(performance_results['operations']):.2f} ms")
@@ -503,10 +505,10 @@ def main():
     
     print(f"\n{'WORKFLOW EFFICIENCY GAINS':^70}")
     print("-" * 70)
-    print(f"✓ Manual Work Reduction: {workflow_results['reduction_percent']:.1f}%")
-    print(f"✓ Time Saved per Analysis: {workflow_results['time_saved']} minutes")
-    print(f"✓ Speed Improvement: {workflow_results['total_manual']/workflow_results['total_automated']:.1f}x faster")
-    print(f"✓ Efficiency Multiplier: {100/(100-workflow_results['reduction_percent']):.1f}x")
+    print(f"* Manual Work Reduction: {workflow_results['reduction_percent']:.1f}%")
+    print(f"* Time Saved per Analysis: {workflow_results['time_saved']} minutes")
+    print(f"* Speed Improvement: {workflow_results['total_manual']/workflow_results['total_automated']:.1f}x faster")
+    print(f"* Efficiency Multiplier: {100/(100-workflow_results['reduction_percent']):.1f}x")
     
     print(f"\n{'GENERATED FILES':^70}")
     print("-" * 70)
@@ -514,7 +516,7 @@ def main():
     print("  2. dashboard_performance_metrics.png")
     
     print("\n" + "="*70)
-    print("✓ EVALUATION COMPLETED SUCCESSFULLY!")
+    print("* EVALUATION COMPLETED SUCCESSFULLY!")
     print("="*70)
     print()
 

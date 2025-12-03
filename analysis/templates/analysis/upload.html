@@ -166,9 +166,19 @@
             <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">📁</div>
                 <div class="upload-text">Click to browse or drag & drop</div>
-                <div class="file-info">Supported format: CSV files</div>
+                <div class="file-info">Supported format: CSV files (max 10MB)</div>
                 {{ form.as_p }}
             </div>
+
+            {% if form.errors %}
+            <div style="color: red; margin-top: 20px; text-align: center;">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
 
             <div class="selected-file" id="selectedFile">
                 <strong>Selected:</strong> <span id="fileName"></span>
